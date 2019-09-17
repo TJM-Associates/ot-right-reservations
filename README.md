@@ -53,69 +53,66 @@ npm install
 ## 4. CRUD APIs
 
 ### Create a new reservation
-Creates a new reservation for the given restaurant name, date, time, and number of people.
+Creates a new reservation for the given restaurant_id, reservation_date, reservation_time, and party_size.
 
-POST /api/restaurants/:restaurantName/reservations
+### **POST** /api/restaurants/reservations
 
-#### Sample input:
+#### Sample Input:
 ```json
-POST /api/restaurants/TacoSupreme/reservations
+POST /api/restaurants/1/reservations
 {
-  "calendar_date": "2019-09-02",
-  "calendar_time": "13:00:00",
-  "num_reserved_seats": 3,
+  "reservation_datetime": "2019-09-02 13:00:00",
+  "seats": 3,
 }
 ```
-#### Returns
-Returns the created reservation object if successful.
+#### Sample Output:
+{
+  "id": "123",
+  "restaurant_id": "r1",
+  "reservation_datetime": "2019-09-02 13:00:00",
+  "seats": 3,
+}
 
 ---
-### Retrieve a reservation
-Retrieves a list of available reservations times for the given restaurant name, date, time, and number of people.
+### Retrieve available times for restaurant
+Retrieves a list of available reservation times for the given restaurant_id, reservation_date, reservation_time, and party_size.
 
-GET /api/restaurants/:restaurantName/reservations
+### **GET** /api/restaurants/:restaurantId/availability/date={reservation_date}&time={reservation_time}&seats={party_size}
 
-#### Sample input:
+#### Sample Input:
+GET /api/restaurants/1/availability/date=2019-09-12&time=19:00&seats=3
+
+#### Sample Output:
 ```json
-GET /api/restaurants/TacoSupreme/reservations
 {
-  "calendar_date": "2019-09-02",
-  "calendar_time": "13:00:00",
-  "num_reserved_seats": 3,
+  ["19:00", "19:30", "20:00"]
 }
 ```
-#### Returns
-Returns the reservation object if successful.
 
 ---
 ### Update an existing reservation
-Updates an existing reservation's party size for the given restaurant name. Provide either the date, time, or number of people to update. Provide one or all of the fields to update.
+Updates an existing reservation's party size given the reservation_id.
 
-PUT /api/restaurants/:restaurantName/reservations
+### **PATCH** /api/restaurants/:restaurantId/reservations/:reservationId
+
+#### Sample Input:
 ```json
-PUT /api/restaurants/TacoSupreme/reservations
+PATCH /api/restaurants/1/reservations/111
 {
-  "calendar_date": "2019-09-02",
-  "calendar_time": "13:00:00",
   "num_reserved_seats": 3,
 }
 ```
 
-#### Returns
-Returns sucess message if successful.
-
----
-### Delete / DELETE - delete an item
-Deletes the reservation given the restaurant name, reservation date, and time.
-
-DELETE /api/restaurants/:restaurantName/reservations
+#### Sample Output:
 ```json
-DELETE /api/restaurants/TacoSupreme/reservations
 {
-  "calendar_date": "2019-09-02",
-  "calendar_time": "13:00:00",
+  "reservation_id": 111,
+  "seats": 3,
 }
 ```
 
-#### Returns
-Returns sucess message if successful.
+---
+### Delete a reservation
+Deletes the reservation given the reservation_id.
+
+### **DELETE** /api/restaurants/:restaurantId/reservations/:reservationId
