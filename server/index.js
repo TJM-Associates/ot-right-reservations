@@ -1,9 +1,11 @@
+const newrelic = require('newrelic');
 const compression = require('compression');
 const express = require('express');
 const bodyParser = require('body-parser');
 const db = require('./controllers/postgresDbHelpers.js');
 
 const app = express();
+app.locals.newrelic = newrelic;
 
 app.use(compression());
 app.use(bodyParser.json());

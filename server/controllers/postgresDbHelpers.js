@@ -9,7 +9,7 @@ const db = new Client({
   database: config.database,
 });
 
-db.connect(err => {
+db.connect((err) => {
   if (err) {
     console.error('Error connecting to postgres.', err.stack);
   } else {

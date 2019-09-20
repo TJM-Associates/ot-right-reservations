@@ -1,0 +1,18 @@
+config:
+  target: 'http://localhost:3003/restaurants/2'
+  phases:
+    - duration: 30
+      arrivalRate: 100
+  defaults:
+    headers:
+      x-my-service-auth: '987401838271002188298567'
+scenarios:
+  - flow:
+    - get:
+        url: "/restaurants/100"
+    - get:
+        url: "/api/restaurants/:restaurantId/availability/"
+        qs:
+          date: "2019-09-18"
+          time: "15:00"
+          seats: 3
