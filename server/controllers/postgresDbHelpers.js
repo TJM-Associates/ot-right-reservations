@@ -75,12 +75,14 @@ const getAvailableTimes = (req, res) => {
   db.query(sql, filter)
     .then((data) => {
       const queryOutputArr = data.rows;
-      const restaurantCapacity = Number(queryOutputArr[0].capacity_per_slot);
+      const restaurantCapacity = queryOutputArr[0] ? Number(queryOutputArr[0].capacity_per_slot) : 0;
       const reservationTime = Number(req.query.time.slice(0, 2));
-      const open = Number(queryOutputArr[0].open_time.slice(0, 2));
-      const close = Number(queryOutputArr[0].close_time.slice(0, 2));
+      const reservationDate = req.query.date;
+      const open = queryOutputArr[0] ? Number(queryOutputArr[0].open_time.slice(0, 2)) : 0;
+      const close = queryOutputArr[0] ? Number(queryOutputArr[0].close_time.slice(0, 2)) : 0;
       const lowerBound = (reservationTime - 2 > open) && (reservationTime - 2 < close) ? reservationTime - 2 : open;
       const upperBound = (reservationTime + 2 > open) && (reservationTime + 2 < close) ? reservationTime + 2 : close;
+      
 
       if (reservationTime > close || reservationTime < open) {
         res.status(200).send([]);
@@ -101,7 +103,9 @@ const getAvailableTimes = (req, res) => {
       }
   })
   .catch((err) => {
-    res.status(500).send(err.stack);
+    console.log(req.params.restaurantId);
+    console.log(err.stack);
+    res.status(500).send(err);
   });
 };
 
@@ -145,7 +149,7 @@ const getRestaurantInfo = (req, res) => {
     .catch((err) => {
       res.status(500).send(err);
     });
-}
+};
 
 module.exports = {
   createReservation,

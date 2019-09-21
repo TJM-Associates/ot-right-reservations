@@ -3,6 +3,7 @@ const compression = require('compression');
 const express = require('express');
 const bodyParser = require('body-parser');
 const db = require('./controllers/postgresDbHelpers.js');
+// process.env.UV_THREADPOOL_SIZE = 128;
 
 const app = express();
 app.locals.newrelic = newrelic;
@@ -16,6 +17,10 @@ app.use((req, res, next) => {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
+app.use(function (err, req, res, next) {
+    console.error(err.stack)
+    res.status(500).send('Something broke!')
+  })
 
 app.post('/api/restaurants/:restaurantId/reservations/', db.createReservation);
 app.get('/api/restaurants/:restaurantId/availability/', db.getAvailableTimes);

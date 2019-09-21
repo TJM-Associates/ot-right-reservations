@@ -1,18 +1,18 @@
 config:
-  target: 'http://localhost:3003/restaurants/2'
+  target: 'http://localhost:3003'
   phases:
-    - duration: 30
-      arrivalRate: 100
+    - duration: 60
+      arrivalCount: 10
   defaults:
     headers:
       x-my-service-auth: '987401838271002188298567'
 scenarios:
   - flow:
-    - get:
-        url: "/restaurants/100"
-    - get:
-        url: "/api/restaurants/:restaurantId/availability/"
-        qs:
-          date: "2019-09-18"
-          time: "15:00"
-          seats: 3
+    - loop:
+      - get:
+          url: "/api/restaurants/{{$randomNumber(1, 10000000)}}/availability/"
+          qs:
+            date: "2019-09-{{$randomNumber(15, 21)}}"
+            time: "{{$randomNumber(9, 17)}}:00"
+            seats: "{{$randomNumber(1, 5)}}"
+        count: 1000
