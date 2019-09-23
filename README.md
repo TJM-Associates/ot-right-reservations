@@ -1,6 +1,8 @@
-# Reservation System
+# Restaurant Reservations
 
-> System for booking a calendar event by time. Allow users to select a date from a calendar, which will show available reservation times on that day.
+> A restaurant reservation booking app. This module focuses on calendar reservations
+- Front end: React, Webpack
+- Back end: Node/express, Postgres, AWS
 
 ## Related Projects
 
@@ -19,7 +21,7 @@
 
 Install node modules using npm install.
 
-Initialize MySQL schema and generate dummy data for 100 restaurants.
+Initialize Postgres schema and generate dummy data for 10M restaurants and 100M reservations.
 ```sh
 npm run sql
 npm run seed
