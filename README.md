@@ -1,7 +1,8 @@
 # Restaurant Reservations
 
-> A restaurant reservation booking app. This module focuses on calendar reservations by restaurantId, date, time, and party size. The focus of this project is to simulate 100M data points and handle 1000+ requests per second.
-- Front end: React, Webpack
+> A restaurant reservation booking app. Scaled the backend of the reviews microservice to handle +100M data points and over 1000 requests per second (RPS).
+
+- Front end: ReactJS
 - Back end: Node/express, Postgres, AWS
 
 ## Related Projects
