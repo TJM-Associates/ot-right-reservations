@@ -69,12 +69,14 @@ POST /api/restaurants/1/reservations
 }
 ```
 #### Sample Output:
+```json
 {
   "id": "123",
   "restaurant_id": "r1",
   "reservation_datetime": "2019-09-02 13:00:00",
   "seats": 3,
 }
+```
 
 ---
 ### Retrieve available times for restaurant
