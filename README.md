@@ -88,7 +88,9 @@ Retrieves a list of available reservation times for the given restaurant_id, res
 GET /api/restaurants/1/availability/date=2019-09-12&time=19:00&seats=3
 
 #### Sample Output:
-> ["19:00", "19:30", "20:00"]
+```json
+["19:00", "19:30", "20:00"]
+```
 
 ---
 ### Update an existing reservation
