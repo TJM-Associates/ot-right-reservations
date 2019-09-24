@@ -24,4 +24,13 @@ CREATE TABLE reservations (
   seats SMALLINT NOT NULL
 );
 
+-- COPY restaurants(name,open_time,close_time,capacity_per_slot) FROM '/Users/taehoonkim/Google Drive/hr-prep/sdc/ot-right-reservations/db/csv/restaurants.csv' DELIMITER ',' CSV HEADER;
+-- COPY reservations(restaurant_id,reservation_datetime,seats) FROM '/Users/taehoonkim/Google Drive/hr-prep/sdc/ot-right-reservations/db/csv/reservations.csv' DELIMITER ',' CSV HEADER;
 -- ALTER TABLE reservations ADD CONSTRAINT fk_reservations FOREIGN KEY (restaurant_id) REFERENCES restaurants (id) MATCH FULL;
+-- CREATE INDEX index_reservations_rest_id ON reservations(restaurant_id)
+
+-- in EC2:
+-- copy csv files to /var/lib/postgresql/
+-- log into postgres
+-- \COPY restaurants(name,open_time,close_time,capacity_per_slot) FROM '~/csv/restaurants.csv' DELIMITER ',' CSV HEADER;
+-- \COPY reservations(restaurant_id,reservation_datetime,seats) FROM '~/csv/reservations.csv' DELIMITER ',' CSV HEADER;

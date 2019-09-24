@@ -1,6 +1,9 @@
-# Reservation System
+# Restaurant Reservations
 
-> System for booking a calendar event by time. Allow users to select a date from a calendar, which will show available reservation times on that day.
+> A restaurant reservation booking app. Scaled the backend of the reviews microservice to handle +100M data points and over 1000 requests per second (RPS).
+
+- Front end: ReactJS
+- Back end: Node/express, Postgres, AWS
 
 ## Related Projects
 
@@ -10,16 +13,16 @@
 
 ## Table of Contents
 
-1. [Usage](##1. Usage)
-2. [Requirements](# 2.Requirements)
-3. [Development](#3. Development)
-4. [CRUD APIs](#4. CRUD APIs)
+1. [Usage](Usage)
+2. [Requirements](Requirements)
+3. [Development](Development)
+4. [CRUD APIs](CRUD APIs)
 
 ## Usage
 
 Install node modules using npm install.
 
-Initialize MySQL schema and generate dummy data for 100 restaurants.
+Initialize Postgres schema and generate dummy data for 10M restaurants and 100M reservations.
 ```sh
 npm run sql
 npm run seed
@@ -33,14 +36,14 @@ npm run start:dev
 
 This component uses port 3003, with the global component name Reservation.
 
-## 2. Requirements
+## Requirements
 
 An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
 - Node 6.13.0
 - etc
 
-## 3. Development
+## Development
 
 ### Installing Dependencies
 
@@ -50,7 +53,7 @@ From within the root directory:
 npm install
 ```
 
-## 4. CRUD APIs
+## CRUD APIs
 
 ### Create a new reservation
 Creates a new reservation for the given restaurant_id, reservation_date, reservation_time, and party_size.
@@ -66,12 +69,14 @@ POST /api/restaurants/1/reservations
 }
 ```
 #### Sample Output:
+```json
 {
   "id": "123",
   "restaurant_id": "r1",
   "reservation_datetime": "2019-09-02 13:00:00",
   "seats": 3,
 }
+```
 
 ---
 ### Retrieve available times for restaurant
@@ -84,9 +89,7 @@ GET /api/restaurants/1/availability/date=2019-09-12&time=19:00&seats=3
 
 #### Sample Output:
 ```json
-{
-  ["19:00", "19:30", "20:00"]
-}
+["19:00", "19:30", "20:00"]
 ```
 
 ---

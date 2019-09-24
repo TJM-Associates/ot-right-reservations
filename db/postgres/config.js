@@ -3,7 +3,7 @@ const { Client } = require('pg');
 module.exports = {
   user: process.env.USER,
   password: null,
-  host: 'localhost',
+  host: '13.52.101.51',
   database: 'opentable',
 };
 
