@@ -263,7 +263,7 @@ class Reservation extends React.Component {
   componentDidMount() {
     var date = new Date;
     var dayOfWeek = moment().format('ddd');
-    $.get(`http://localhost:3003/api/restaurants/${this.restaurantId}`, (data) => {
+    $.get(`http://54.215.234.24:3003/api/restaurants/${this.restaurantId}`, (data) => {
     this.setState({
       openTime: data.open_time,
       closeTime: data.close_time,
@@ -378,7 +378,7 @@ class Reservation extends React.Component {
     // var timeLower = moment(this.state.time, ['h:m a', 'H:m']).subtract(1.25, 'hours').format('HH:mm')
     // var timeUpper = moment(this.state.time, ['h:m a', 'H:m']).add(1.25, 'hours').format('HH:mm')
     var req = { date: this.state.date, time: twentyFourTime, seats: this.state.seats };
-    $.get(`http://localhost:3003/api${window.location.pathname}availability`, req, (data) => {
+    $.get(`http://54.215.234.24:3003/api${window.location.pathname}availability`, req, (data) => {
       var times = [];
       data.forEach((bookingTime) => times.push(moment(bookingTime, ['HH:mm:ss']).format('h:mm A')));
       this.setState({

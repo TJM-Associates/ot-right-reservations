@@ -83,7 +83,6 @@ const getAvailableTimes = (req, res) => {
       const lowerBound = (reservationTime - 2 > open) && (reservationTime - 2 < close) ? reservationTime - 2 : open;
       const upperBound = (reservationTime + 2 > open) && (reservationTime + 2 < close) ? reservationTime + 2 : close;
       
-
       if (reservationTime > close || reservationTime < open) {
         res.status(200).send([]);
       } else {
