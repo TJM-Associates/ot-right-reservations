@@ -26,6 +26,6 @@ public/bundle.js
 build/
 dist/
 db/csv/
-db/postgres/config.js
+*config.js
 db/mongo/config.js
 db/config.js
