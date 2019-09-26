@@ -1,8 +1,8 @@
-const { Client } = require('pg');
+const { Pool } = require('pg');
 const config = require('../../db/postgres/config.js');
 const moment = require('moment');
 
-const db = new Client({
+const db = new Pool({
   user: config.user,
   password: config.password,
   host: config.host,
