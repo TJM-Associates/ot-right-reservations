@@ -18,11 +18,6 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(function (err, req, res, next) {
-    console.error(err.stack)
-    res.status(500).send('Something broke!')
-  })
-
 app.post('/api/restaurants/:restaurantId/reservations/', db.createReservation);
 app.get('/api/restaurants/:restaurantId/availability/', db.getAvailableTimes);
 app.get('/api/restaurants/:restaurantId/', db.getRestaurantInfo);

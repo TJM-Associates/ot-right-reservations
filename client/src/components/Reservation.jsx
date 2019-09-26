@@ -4,7 +4,8 @@ import moment from 'moment';
 import $ from 'jquery';
 import Calendar from './Calendar.jsx';
 
-const host = '54.215.234.24';
+const host = 'localhost';
+// const host = '54.215.234.24';
 
 // import BrandonTextRegular from './fonts/BrandonText-Regular.otf';
 // import BrandonTextLight from './fonts/BrandonText-Light.otf';
@@ -265,7 +266,7 @@ class Reservation extends React.Component {
   componentDidMount() {
     var date = new Date;
     var dayOfWeek = moment().format('ddd');
-    $.get(`http://${host}:3003/api/restaurants/${this.restaurantId}`, (data) => {
+    $.get(`/api/restaurants/${this.restaurantId}`, (data) => {
     this.setState({
       openTime: data.open_time,
       closeTime: data.close_time,
@@ -377,10 +378,8 @@ class Reservation extends React.Component {
 
   findReservation() {
     var twentyFourTime = moment(this.state.time, ['h:m a', 'H:m']).format('HH:mm')
-    // var timeLower = moment(this.state.time, ['h:m a', 'H:m']).subtract(1.25, 'hours').format('HH:mm')
-    // var timeUpper = moment(this.state.time, ['h:m a', 'H:m']).add(1.25, 'hours').format('HH:mm')
     var req = { date: this.state.date, time: twentyFourTime, seats: this.state.seats };
-    $.get(`http://${host}:3003/api${window.location.pathname}availability`, req, (data) => {
+    $.get(`/api${window.location.pathname}availability`, req, (data) => {
       var times = [];
       data.forEach((bookingTime) => times.push(moment(bookingTime, ['HH:mm:ss']).format('h:mm A')));
       this.setState({
@@ -397,8 +396,7 @@ class Reservation extends React.Component {
     //   "reservation_datetime": "2019-09-17 17:00:03",
     //   "seats": 
     // }
-    // $.post(`http://localhost:3003/api/restaurants/${restaurantId}/reservations`, req, (success) => {
-
+    // $.post(`/api/restaurants/${restaurantId}/reservations`, req, (success) => {
     // });
   }
 

@@ -22,8 +22,10 @@ coverage
 .grunt
 
 # Compiled Dirs (http://nodejs.org/api/addons.html)
+public/bundle.js
 build/
 dist/
 db/csv/
 db/postgres/config.js
 db/mongo/config.js
+db/config.js
