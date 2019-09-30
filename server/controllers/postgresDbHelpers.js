@@ -1,6 +1,13 @@
 const { Pool } = require('pg');
 const config = require('../../db/postgres/config.js');
 const moment = require('moment');
+  const redisClient = require('redis').createClient;
+
+  const redis = redisClient(6379, 'localhost');
+
+  redis.on("error", function (err) {
+    console.log("Error " + err);
+  });
 
 const db = new Pool({
   user: config.user,
@@ -138,16 +145,36 @@ const deleteReservation = (req, res) => {
 
 // GET /api/restaurants/:restaurantId
 const getRestaurantInfo = (req, res) => {
-  const updateData = [Number(req.params.restaurantId)];
+  const restaurantId = [Number(req.params.restaurantId)];
   const sql = 'SELECT open_time, close_time FROM restaurants where id = ($1)';
 
-  db.query(sql, updateData)
-    .then((data) => {
-      res.status(200).send(data.rows[0]);
-    })
-    .catch((err) => {
-      res.status(500).send(err);
-    });
+  // check if hash exists in redis
+  redis.get(req.params.restaurantId, (err, response) => {
+    if (err) res.status(500).send(err.stack);
+    else if (response) {
+      response = JSON.parse(response);
+      res.json(response);
+    } else {
+      db.query(sql, restaurantId)
+      .then((data) => {
+        redis.set(req.params.restaurantId, JSON.stringify(data.rows[0]), () => {
+          res.status(200).send(data.rows[0]);
+        });
+      })
+      .catch((err) => {
+        res.status(500).send(err);
+      });
+    }
+  })
+  // otherwise get from db then push to redis
+  
+  // db.query(sql, restaurantId)
+  //   .then((data) => {
+  //     res.status(200).send(data.rows[0]);
+  //   })
+  //   .catch((err) => {
+  //     res.status(500).send(err);
+  //   });
 };
 
 module.exports = {
