@@ -1,9 +1,13 @@
 # Restaurant Reservations
 
-> A restaurant reservation booking app. Scaled the backend of the reviews microservice to handle +100M data points and over 1000 requests per second (RPS).
+> A restaurant reservation booking app. Scaled the backend of the reviews microservice to handle +2400 RPS over +100M rows at under 50 ms latency. 
+- Postgres as primary data store
+- Redis for in-memory caching
+- Load balancer server pointing to multiple EC2 instances of the application
 
+## Tech Stack
 - Front end: ReactJS
-- Back end: Node/express, Postgres, AWS
+- Back end: Node/Express, Postgres, Redis, AWS EC2
 
 ## Related Projects
 
