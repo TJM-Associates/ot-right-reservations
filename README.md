@@ -1,4 +1,4 @@
-# Restaurant Reservations
+# OpenPlace - Restaurant Reservations Module
 
 > A restaurant reservation booking app. Scaled the backend of the reviews microservice to handle +2400 RPS over +100M rows at under 50 ms latency. 
 - Postgres as primary data store
